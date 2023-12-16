@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { Image, Pressable, TextInput, View } from "react-native"
 import { styles } from "./Form.styles"
-import { insert } from "../../data/courseRep"
 
 export const Form = ({ onAddCourse }) => {
 
@@ -20,8 +19,6 @@ export const Form = ({ onAddCourse }) => {
                 progress: null,
                 classes: null
             }
-
-            insert(course)
 
             onAddCourse(course)
 

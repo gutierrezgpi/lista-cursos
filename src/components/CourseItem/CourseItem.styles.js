@@ -15,12 +15,12 @@ export const Styles = StyleSheet.create({
     label: {
         color: 'white',
         fontWeight: 'bold',
-        fontSize: 16
+        fontSize: 20
     },
 
     data: {
         color: 'white',
-        fontSize: 16
+        fontSize: 20
     }
 
 })

@@ -1,4 +1,4 @@
-import { Alert, SafeAreaView } from "react-native"
+import { Alert, Modal, SafeAreaView } from "react-native"
 
 import { Styles } from "./Home.styles"
 import { CourseList } from "../../components/CourseList/CourseList.comp"
@@ -6,11 +6,17 @@ import { Form } from "../../components/Form/Form.comp";
 import { Header } from "../../components/Header/Header.comp";
 import { useEffect, useState } from "react";
 
-import { list } from "../../data/courseRep"
+import { list, insert, remove, update } from "../../data/courseRep"
+import { EditCourse } from "../../components/EditCourse/EditCourse.comp";
+import React from "react";
 
 export const Home = () => {
 
     const [courses, setCourses] = useState([])
+
+    const [isOpenCourse, setIsOpenCourse] = useState(false)
+
+    const [editedCourse, setEditedCourse] = useState(null)
 
     useEffect( () => {
       getCourses()
@@ -28,13 +34,31 @@ export const Home = () => {
       
     }
 
-    const addCourse = (course) => {
-      try {
-        const newCourses = [...courses, course]
-        setCourses(newCourses)
-      } catch (error) {
-        return Alert.alert('Erro', 'Não foi possível registrar a tarefa.')
-      }
+    const addCourse = async (course) => {
+
+      await insert(course)
+      const newCourses = [...courses, course]
+      setCourses(newCourses)
+
+    }
+
+    const openCourse = (course) => {
+      setIsOpenCourse(true)
+      setEditedCourse(course)
+    }
+
+    const removeCourse = async (id) => {
+
+      await remove(id)
+      const newCourses = [...courses].filter((course) => course.id != id)
+      setCourses(newCourses)
+
+    }
+
+    const updateCourse = async (course) => {
+      
+      await update(course)
+      
     }
 
     return(
@@ -42,14 +66,30 @@ export const Home = () => {
 
             <Header />
 
-            <CourseList 
+            <CourseList
               courses={ courses }
+              openCourse={ openCourse }
             />
 
             <Form
               onAddCourse={ addCourse }
             />
-            
+
+            <Modal 
+              animationType="slide"
+              visible={isOpenCourse}
+              onRequestClose={() => {
+                setIsOpenCourse(!isOpenCourse);
+              }}
+            >
+              <EditCourse
+                course={editedCourse}
+                isOpenCourse={setIsOpenCourse}
+                onRemoveCourse={removeCourse}
+                onUpdateCourse={updateCourse}
+              />
+            </Modal>
+
         </SafeAreaView>
     )
 }

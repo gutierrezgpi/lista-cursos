@@ -11,6 +11,20 @@ const list = async () => {
   return courses || []
 }
 
+const remove = async (id) => {
+  const data = await getData()
+  data.courses = data.courses.filter((course) => course.id != id)
+  await storeData(data)
+}
+
+const update = async (course) => {
+
+  data = await getData()
+  data.courses = data.courses.map((t) => (t.id == course.id ? course : t))
+  await storeData(data)
+
+}
+
 const storeData = async (value) => {
   try {
     const jsonValue = JSON.stringify(value);
@@ -45,5 +59,7 @@ const clearAll = async () => {
 export default {
   insert,
   list,
+  remove,
+  update,
   clearAll
 }

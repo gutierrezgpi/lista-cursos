@@ -4,8 +4,7 @@ export const insert = async (course) => {
   try {
     await Storage.insert(course)
   } catch (error) {
-    console.error(error)
-    throw new Error('You can not save the new task')
+    throw error
   }
 }
 
@@ -16,6 +15,22 @@ export const list = async () => {
     console.log(courses)
     return courses
   } catch (error) {
-    throw new Error('You can not get the list of tasks')
+    throw error
+  }
+}
+
+export const remove = async (id) => {
+  try {
+    await Storage.remove(id)
+  } catch (error) {
+    throw error
+  }
+}
+
+export const update = async (course) => {
+  try {
+    await Storage.update(course)
+  } catch (error) {
+    throw error
   }
 }

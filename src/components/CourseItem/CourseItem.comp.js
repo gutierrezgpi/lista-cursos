@@ -2,7 +2,7 @@ import { Pressable, Text, View } from "react-native"
 import { Styles } from "./CourseItem.styles"
 import { useEffect, useState } from "react"
 
-export const CourseItem = ({ course }) => {
+export const CourseItem = ({ course, onOpenCourseItem }) => {
 
     const [platform, setPlatform] = useState('')
 
@@ -17,14 +17,15 @@ export const CourseItem = ({ course }) => {
         }
     })
 
-    const openCourse = (course) => {
+    openCourseItem = (course) => {
         console.log(`Pressed! ${course.id}, ${course.name}, ${course.platform}`);
+        onOpenCourseItem(course)
     };
 
     return(
         <View style={Styles.container}>
-            <Pressable onPress={() => openCourse(course)}>
-                <Text style={Styles.data}>{course.name}</Text>
+            <Pressable onPress={() => openCourseItem(course)}>
+                <Text style={Styles.data}>{ course.name }</Text>
                 <Text>
                     <Text>{platform}</Text>
                     <Text>{progress}</Text>
