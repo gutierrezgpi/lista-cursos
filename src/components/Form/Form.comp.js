@@ -6,7 +6,7 @@ export const Form = ({ onAddCourse }) => {
 
     const [newCourse, setNewCourse] = useState('')
 
-    const addTask = () => {
+    const addCourse = () => {
         try {
             
             const typedText = newCourse.trim()
@@ -39,7 +39,7 @@ export const Form = ({ onAddCourse }) => {
                 placeholder="Nome do curso"
                 placeholderTextColor={"gray"}
             />
-            <Pressable style={styles.button} onPress={() => {addTask()}}>
+            <Pressable style={styles.button} onPress={() => {addCourse()}}>
                 <Image
                     source={require('../../../assets/send.png')}
                     style={styles.buttonImage}

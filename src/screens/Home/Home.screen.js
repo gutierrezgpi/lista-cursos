@@ -1,4 +1,4 @@
-import { Alert, Modal, SafeAreaView } from "react-native"
+import { Modal, SafeAreaView } from "react-native"
 
 import { Styles } from "./Home.styles"
 import { CourseList } from "../../components/CourseList/CourseList.comp"
